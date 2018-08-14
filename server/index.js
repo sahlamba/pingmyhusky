@@ -41,11 +41,6 @@ io.on('connection', socket => {
     console.log('Got this back from client: ' + data);
   });
 
-  // passthrough relay:stream_data to clients
-  socket.on('relay:stream_data', data => {
-    socket.emit('server:stream_data', data);
-  });
-
   socket.on('disconnect', () => {
     io.totalConnections--;
     socket.leave('stream');

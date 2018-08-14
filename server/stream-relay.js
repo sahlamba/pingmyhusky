@@ -26,8 +26,8 @@ module.exports = (STREAM_SECRET, io) => {
           request.socket.remotePort
       );
       request.on('data', function(data) {
-        // send stream data to server
-        io.emit('relay:stream_data', data);
+        // send stream data to clients in stream room
+        io.to('stream').emit('relay:stream_data', data);
       });
       request.on('end', function() {
         console.log('Close request');

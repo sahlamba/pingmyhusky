@@ -5,7 +5,8 @@ socket.on('server:data', function(data) {
   socket.emit('client:ack_data', data);
 });
 
-socket.on('server:stream_data', function(stream_data) {
+// Listen to relay server's event
+socket.on('relay:stream_data', function(stream_data) {
   console.log(stream_data);
 });
 
