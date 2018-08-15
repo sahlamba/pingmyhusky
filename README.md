@@ -14,6 +14,7 @@ npm install
 APP_PORT = 3000
 STREAM_RELAY_PORT = 3001
 ```
+You can set custom ports based on your requirements and how you want to setup the servers.
 
 #### Run servers in development mode (with [nodemon](https://nodemon.io)) -
 
