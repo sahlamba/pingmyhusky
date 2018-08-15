@@ -13,19 +13,21 @@ socket.on('relay:stream_data', function(stream_data) {
 });
 
 function playSound() {
-  let req = new XMLHttpRequest();
+  const butt = document.getElementById('play-sound-button');
 
-  req.open('GET', BASE_URL + '/control/sound?play=sound.mp3', true);
+  butt.disabled = true;
+  let req = new XMLHttpRequest();
+  req.open('GET', BASE_URL + '/control/sound?play=roadrunner.mp3', true);
 
   req.onreadystatechange = function() {
     if (req.readyState === 4) {
-      const responseDiv = document.getElementById('play-sound-response');
+      const responseDiv = document.getElementById('play-sound-log');
       if (req.status === 200) {
-        responseDiv.innerHTML = req.response;
+        responseDiv.innerHTML += req.response + '<br/>';
+      } else {
+        responseDiv.innerHTML += req.statusText + '<br/>';
       }
-      if (req.status === 400) {
-        responseDiv.innerHTML = req.statusText;
-      }
+      butt.disabled = false;
     }
   };
 

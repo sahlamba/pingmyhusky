@@ -21,6 +21,7 @@
   "dependencies": {
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "play-sound": "^1.1.2",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
