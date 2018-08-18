@@ -11,8 +11,8 @@ npm install
 #### Create a `.env` file in your root directory and add the following keys -
 
 ```
-APP_PORT = 3000
-STREAM_RELAY_PORT = 3001
+APP_PORT = 9042
+STREAM_RELAY_PORT = 9043
 ```
 You can set custom ports based on your requirements and how you want to setup the servers.
 
@@ -38,17 +38,22 @@ npm start -- <stream_secret>
 #### To connect ffmpeg stream to your relay server, run -
 
 ```bash
-ffmpeg -s 640x480 -f video4linux2 -i /dev/video0 \
--f mpeg1video -b 800k -r 30 http://localhost:3001/<stream_secret>
+# To stream sample video, run in root dir after starting app + socket + relay servers
+ffmpeg -i server/media/sample.mp4 -f mpegts \
+-codec:v mpeg1video -codec:a mp2 http://localhost:9043/<stream_secret>
+
+# To stream from USB Webcam on Raspberry Pi 3
+ffmpeg -s 720x480 -f video4linux2 -i /dev/video0 \
+-f mpegts -b 800k -r 30 http://localhost:9043/<stream_secret>
 
 # Resolution (-s) 640x480 - Specify resolution for stream
 # Input Format (-f) video4linux2 - Tells ffmpeg to use video4linux2 driver to encode camera feed to h264
 # Input URL (-i) - Get USB connected camera feed at /dev/video0 as input
 
-# Output Format (-f) mpeg1video - Get ouput as MPEG video
+# Output Format (-f) mpegts - Get ouput as MPEG video
 # Bitrate (-b) 800k - Specifiy bitrate
 # FPS (-r) 30 - Specify 30FPS for output
 # The last arg is our STREAM RELAY server endpoint where we want to send the stream to
 ```
 
-You should be able to see your live camera feed at http://localhost:3000! :dog2: :video_camera:
+You should be able to see your live camera feed at http://localhost:9042! :dog2: :video_camera:

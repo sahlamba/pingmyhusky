@@ -20,7 +20,7 @@ socket.on('server:data', (data) => {
 socket.on('relay:stream_data', (streamData) => {
   // eslint-disable-next-line
   console.log(streamData);
-  streamPlayer.write(streamData.buffer);
+  streamPlayer.write(streamData, () => {});
 });
 
 // eslint-disable-next-line
