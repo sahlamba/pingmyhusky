@@ -1,8 +1,14 @@
-/* global document, XMLHttpRequest, io */
+/* global document, XMLHttpRequest, io, JSMpeg */
 
 const BASE_URL = 'http://localhost:9042';
 
 const socket = io.connect(BASE_URL);
+// eslint-disable-next-line
+console.log(socket);
+
+const streamPlayer = new JSMpeg.Player('pipe', {
+  canvas: document.getElementById('stream-canvas'),
+});
 
 socket.on('server:data', (data) => {
   // eslint-disable-next-line
@@ -10,10 +16,11 @@ socket.on('server:data', (data) => {
   socket.emit('client:ack_data', data);
 });
 
-// Listen to relay server's event
+// Listen to relay server's event and pipe to JSMpeg Player
 socket.on('relay:stream_data', (streamData) => {
   // eslint-disable-next-line
   console.log(streamData);
+  streamPlayer.write(streamData.buffer);
 });
 
 // eslint-disable-next-line
