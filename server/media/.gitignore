@@ -1,0 +1,9 @@
+# Do not track/commit any other media to Github apart from lightweight samples
+*
+
+# Whitelist of Sample Audio/Video
+!roadrunner.mp3
+!sample.mp4
+
+# Whitelist .gitignore
+!.gitignore
