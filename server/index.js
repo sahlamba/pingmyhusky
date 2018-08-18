@@ -1,6 +1,5 @@
 const path = require('path');
 
-const http = require('http');
 const express = require('express');
 const app = require('express')();
 const server = require('http').Server(app);
@@ -11,10 +10,11 @@ const routes = require('./routes');
 const APP_PORT = process.env.APP_PORT || 3000;
 
 if (process.argv.length < 3) {
+  // eslint-disable-next-line
   console.log(
-    'Usage: \n' +
-      'node . <secret> [<stream-port> <app-port>] \n' +
-      'Please pass STREAM_SECRET: npm start -- STREAM_SECRET'
+    'Usage: \n'
+      + 'node . <secret> [<stream-port> <app-port>] \n'
+      + 'Please pass STREAM_SECRET: npm start -- STREAM_SECRET',
   );
   process.exit();
 }
@@ -24,27 +24,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-server.listen(APP_PORT, err => {
+server.listen(APP_PORT, (err) => {
   if (err) throw err;
-  console.log('App listening on port ' + APP_PORT + '!');
+  // eslint-disable-next-line
+  console.log(`App listening on port ${APP_PORT}!`);
 });
 
 io.totalConnections = 0;
-io.on('connection', socket => {
-  io.totalConnections++;
+io.on('connection', (socket) => {
+  io.totalConnections += 1;
   socket.join('stream');
-  console.log('Client connected, total: ' + io.totalConnections);
+  // eslint-disable-next-line
+  console.log(`Client connected, total: ${io.totalConnections}`);
 
   socket.emit('server:data', 'A message from server');
 
-  socket.on('client:ack_data', data => {
-    console.log('Got this back from client: ' + data);
+  socket.on('client:ack_data', (data) => {
+    // eslint-disable-next-line
+    console.log(`Got this back from client: ${data}`);
   });
 
   socket.on('disconnect', () => {
-    io.totalConnections--;
+    io.totalConnections -= 1;
     socket.leave('stream');
-    console.log('Client disconnected, total: ' + io.totalConnections + '\n***');
+    // eslint-disable-next-line
+    console.log(`Client disconnected, total: ${io.totalConnections}\n***`);
   });
 });
 

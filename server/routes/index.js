@@ -1,5 +1,6 @@
 const express = require('express');
 const controls = require('../controls');
+
 const router = express.Router();
 
 router.get('/control/sound', controls.playSound);

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon . streamsecret",
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "node_modules/.bin/eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,19 @@
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
     "nodemon": "^1.18.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
   }
 }
