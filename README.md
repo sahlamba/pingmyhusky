@@ -11,6 +11,7 @@ npm run setup # cleans repo and runs npm install
 #### Create a `.env` file in your root directory and add the following keys -
 
 ```
+SESSION_SECRET = <session_secret>
 APP_PORT = 9042
 STREAM_RELAY_PORT = 9043
 ```

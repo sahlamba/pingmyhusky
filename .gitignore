@@ -1,3 +1,6 @@
+# Loki DB
+*.db
+
 # OS
 .DS_Store
 

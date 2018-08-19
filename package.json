@@ -23,8 +23,12 @@
   },
   "homepage": "https://github.com/thedrumsknight/pingmyhusky#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-loki": "^1.1.0",
     "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "play-sound": "^1.1.2",
     "socket.io": "^2.1.1"
   },

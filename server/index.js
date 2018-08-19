@@ -1,9 +1,13 @@
 const path = require('path');
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+
+const session = require('express-session');
+const LokiSessionStore = require('connect-loki')(session);
 
 const routes = require('./routes');
 
@@ -20,8 +24,26 @@ if (process.argv.length < 3) {
 }
 const STREAM_SECRET = process.argv[2];
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    store: new LokiSessionStore({
+      tty: 0, // to delete stale sessions, this enables instant reauth after logging out
+    }),
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+      expires: new Date(Date.now() + 8 * 3600 * 1000), // 8 hours
+    },
+  }),
+);
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'public', 'views'));
+
+app.engine('html', require('ejs').renderFile);
+
+app.set('view engine', 'html');
+
+app.use(bodyParser.json());
 app.use(routes);
 
 server.listen(APP_PORT, (err) => {
