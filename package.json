@@ -4,6 +4,8 @@
   "description": "Pi Project",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -r node_modules",
+    "setup": "npm run clean && npm install",
     "dev": "nodemon . streamsecret",
     "start": "node .",
     "lint": "node_modules/.bin/eslint .",

@@ -5,7 +5,7 @@ A Pi Project
 #### Clone the repo and install dependencies -
 
 ```bash
-npm install
+npm run setup # cleans repo and runs npm install
 ```
 
 #### Create a `.env` file in your root directory and add the following keys -
@@ -14,6 +14,7 @@ npm install
 APP_PORT = 9042
 STREAM_RELAY_PORT = 9043
 ```
+
 You can set custom ports based on your requirements and how you want to setup the servers.
 
 #### Run servers in development mode (with [nodemon](https://nodemon.io)) -
@@ -32,7 +33,7 @@ npm start -- <stream_secret>
 > the STREAM RELAY server listens to `ffmpeg` stream data and forwards it to socket setup by APP server,
 > the APP server listens to STREAM RELAY socket messages and passes the data to socket clients (browsers),
 > JSMPEG lib (client) decodes ffmpeg stream and displays it in a canvas.
-> 
+>
 > Checkout the awesome JSMPEG here: https://github.com/phoboslab/jsmpeg
 
 #### To connect ffmpeg stream to your relay server, run -
