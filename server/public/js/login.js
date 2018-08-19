@@ -24,7 +24,7 @@ function login() {
         if (req.status === 200) {
           window.location = req.responseURL;
         } else {
-          responseDiv.innerText += `${req.statusText}<br/>`;
+          responseDiv.innerHTML += `${req.statusText}<br/>`;
         }
         butt.disabled = false;
       }
