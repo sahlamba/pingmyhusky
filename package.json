@@ -4,7 +4,9 @@
   "description": "Pi Project",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -r node_modules",
+    "clean": "rm -rf node_modules",
+    "clear:sessions": "rm session-store.db",
+    "clear:users": "rm auth.db",
     "setup": "npm run clean && npm install",
     "dev": "nodemon . streamsecret",
     "start": "node .",
