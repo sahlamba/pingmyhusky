@@ -1,6 +1,8 @@
-/* global document, XMLHttpRequest, io, JSMpeg */
+/* global document, window, XMLHttpRequest, io, JSMpeg */
 
-const BASE_URL = 'http://localhost:9042';
+const BASE_URL = `${window.location.protocol}//${window.location.hostname}${
+  window.location.port ? `:${window.location.port}` : ''
+}`;
 
 const socket = io.connect(BASE_URL);
 // eslint-disable-next-line
@@ -29,7 +31,7 @@ function playSound() {
 
   butt.disabled = true;
   const req = new XMLHttpRequest();
-  req.open('GET', `${BASE_URL}/control/sound?play=roadrunner.mp3`, true);
+  req.open('GET', '/control/sound?play=roadrunner.mp3', true);
 
   req.onreadystatechange = () => {
     if (req.readyState === 4) {

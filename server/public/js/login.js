@@ -15,7 +15,7 @@ function login() {
     };
 
     const req = new XMLHttpRequest();
-    req.open('POST', 'http://localhost:9042/control/login', true);
+    req.open('POST', '/control/login', true);
     req.setRequestHeader('Content-Type', 'application/json');
 
     req.onreadystatechange = () => {

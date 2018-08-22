@@ -39,9 +39,9 @@ const login = (req, res) => {
     // // eslint-disable-next-line
     // console.log(users.get(1));
 
-    const users = db.getCollection('users');
+    const users2 = db.getCollection('users');
 
-    const result = users.find({ username, password_encrypted: password });
+    const result = users2.find({ username, password_encrypted: password });
     if (result.length === 1) {
       // unique user exists
       req.session.username = username;
