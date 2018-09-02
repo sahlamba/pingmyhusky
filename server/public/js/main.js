@@ -5,8 +5,6 @@ const BASE_URL = `${window.location.protocol}//${window.location.hostname}${
 }`;
 
 const socket = io.connect(BASE_URL);
-// eslint-disable-next-line
-console.log(socket);
 
 const streamPlayer = new JSMpeg.Player('pipe', {
   canvas: document.getElementById('stream-canvas'),
@@ -20,8 +18,6 @@ socket.on('server:data', (data) => {
 
 // Listen to relay server's event and pipe to JSMpeg Player
 socket.on('relay:stream_data', (streamData) => {
-  // eslint-disable-next-line
-  console.log(streamData);
   streamPlayer.write(streamData, () => {});
 });
 
