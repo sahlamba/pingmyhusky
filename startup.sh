@@ -37,6 +37,12 @@ echo "URL dumped."
 echo "Sleeping for 2s..."
 sleep 2s
 
+MSG=$(cat url.txt | sed -e 's/^"//' -e 's/"$//')
+echo "URL: $MSG"
+
+echo "Sending mail..."
+cd /home/beebo/Projects/emailservice && ./send-mail -s "Pingmyhusky service started!" -m "View here: $MSG" sahil.lamba95@gmail.com
+
 echo "Set trap..."
 trap "kill $PID1 $PID2 $PID3" exit INT TERM
 
