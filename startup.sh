@@ -1,19 +1,21 @@
-
 #!/bin/bash
 set -e
 
+echo "Changing dir..."
+cd /home/beebo/Projects/pingmyhusky
+
 # Run node app in background
 echo "Starting node app..."
-node . fr0st > server.log 2>&1 &
+$(which node) . fr0st > server.log 2>&1 &
 PID1="$!"
 echo "App started. pid=$PID1"
 
-echo "Sleeping for 3s..."
-sleep 3s
+echo "Sleeping for 5s..."
+sleep 5s
 
 # Run ffmpeg with redirect log
 echo "Starting ffmpeg stream..."
-ffmpeg -nostdin -f v4l2 -video_size 640x480 -i /dev/video0 -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 -muxdelay 0.001 http://localhost:9043/fr0st > ffmpeg.log 2>&1 &
+$(which ffmpeg) -nostdin -f v4l2 -video_size 640x480 -i /dev/video0 -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 -muxdelay 0.001 http://localhost:9043/fr0st > ffmpeg.log 2>&1 &
 PID2="$!"
 echo "Stream started. pid=$PID2"
 
@@ -22,7 +24,7 @@ sleep 2s
 
 # Run ngrok tunnel with redirected logging
 echo "Starting ngrok tunnel..."
-ngrok http 9042 > ngrok.log 2>&1 &
+$(which ngrok) http 9042 > ngrok.log 2>&1 &
 PID3="$!"
 echo "Tunnel up. pid=$PID3"
 
@@ -43,8 +45,11 @@ echo "URL: $MSG"
 echo "Sending mail..."
 cd /home/beebo/Projects/emailservice && ./send-mail -s "Pingmyhusky service started!" -m "View here: $MSG" sahil.lamba95@gmail.com
 
+echo "Going back to project dir..."
+cd /home/beebo/Projects/pingmyhusky
+
 echo "Set trap..."
-trap "kill $PID1 $PID2 $PID3" exit INT TERM
+trap "kill $PID1 $PID2 $PID3 && rm -f session-store.db" exit INT TERM
 
 echo "Ready. Waiting..."
 wait
