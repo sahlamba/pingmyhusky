@@ -31,7 +31,7 @@ app.use(
     }),
     secret: process.env.SESSION_SECRET,
     cookie: {
-      expires: new Date(Date.now() + 8 * 3600 * 1000), // 8 hours
+      expires: new Date(Date.now() + 24 * 3600 * 1000), // 24 hours
     },
   }),
 );

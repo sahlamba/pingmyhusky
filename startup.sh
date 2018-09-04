@@ -19,8 +19,8 @@ $(which ffmpeg) -nostdin -f v4l2 -video_size 640x480 -i /dev/video0 -f mpegts -c
 PID2="$!"
 echo "Stream started. pid=$PID2"
 
-echo "Sleeping for 2s..."
-sleep 2s
+echo "Sleeping for 5s..."
+sleep 5s
 
 # Run ngrok tunnel with redirected logging
 echo "Starting ngrok tunnel..."
@@ -28,8 +28,8 @@ $(which ngrok) http 9042 > ngrok.log 2>&1 &
 PID3="$!"
 echo "Tunnel up. pid=$PID3"
 
-echo "Sleeping for 2s..."
-sleep 2s
+echo "Sleeping for 5s..."
+sleep 5s
 
 # Get ngrok tunnel URL
 echo "Getting URL..."

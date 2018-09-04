@@ -22,12 +22,14 @@ socket.on('relay:stream_data', (streamData) => {
 });
 
 // eslint-disable-next-line
-function playSound() {
-  const butt = document.getElementById('play-sound-button');
+function playSound(filename) {
+  const butts = document.getElementsByClassName('play-sound-button');
 
-  butt.disabled = true;
+  for (let i = 0; i < butts.length; i += 1) {
+    butts[i].disabled = true;
+  }
   const req = new XMLHttpRequest();
-  req.open('GET', '/control/sound?play=roadrunner.mp3', true);
+  req.open('GET', `/control/sound?play=${filename}`, true);
 
   req.onreadystatechange = () => {
     if (req.readyState === 4) {
@@ -37,7 +39,9 @@ function playSound() {
       } else {
         responseDiv.innerHTML += `${req.statusText}<br/>`;
       }
-      butt.disabled = false;
+      for (let i = 0; i < butts.length; i += 1) {
+        butts[i].disabled = false;
+      }
     }
   };
 
