@@ -42,6 +42,17 @@ sleep 2s
 MSG=$(cat url.txt | sed -e 's/^"//' -e 's/"$//')
 echo "URL: $MSG"
 
+# if $MSG is empty/null, retry after 5 secs
+if [ -z "$MSG" ]; then
+    echo "[Error] URL is null, will retry after 5 secs."
+    sleep 5s
+    curl http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url' > url.txt 2>&1 &
+    sleep 2s
+    MSG=$(cat url.txt | sed -e 's/^"//' -e 's/"$//')
+    MSG="[Retry #1] $MSG"
+    echo "URL: $MSG"
+fi
+
 echo "Sending mail..."
 cd /home/beebo/Projects/emailservice && ./send-mail -s "Pingmyhusky service started!" -m "View here: $MSG" sahil.lamba95@gmail.com
 
