@@ -12,7 +12,8 @@
     "start": "node .",
     "lint": "node_modules/.bin/eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "tunnel-dump": "node ./scripts/firebase/tunnel-dump.js"
   },
   "repository": {
     "type": "git",
@@ -25,12 +26,14 @@
   },
   "homepage": "https://github.com/thedrumsknight/pingmyhusky#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "connect-loki": "^1.1.0",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "firebase-admin": "^6.3.0",
     "lokijs": "^1.5.5",
     "play-sound": "^1.1.2",
     "socket.io": "^2.1.1"

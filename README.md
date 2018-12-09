@@ -14,9 +14,13 @@ npm run setup # cleans repo and runs npm install
 SESSION_SECRET = <session_secret>
 APP_PORT = 9042
 STREAM_RELAY_PORT = 9043
+
+FIREBASE_DATABASE_URL="https://<PROJECT-ID>.firebaseio.com"
 ```
 
 You can set custom ports based on your requirements and how you want to setup the servers.
+
+You will also need to setup Firebase Admin SDK ([see this](https://firebase.google.com/docs/admin/setup)), and add `service-account-key.json` locally.
 
 #### Run servers in development mode (with [nodemon](https://nodemon.io)) -
 

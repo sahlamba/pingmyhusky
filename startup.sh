@@ -31,6 +31,9 @@ echo "Tunnel up. pid=$PID3"
 echo "Sleeping for 5s..."
 sleep 5s
 
+# Update ngrok tunnels in Firebase
+$(which npm) run tunnel-dump
+
 # Get ngrok tunnel URL
 echo "Getting URL..."
 curl http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url' > url.txt 2>&1 &
