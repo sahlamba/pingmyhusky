@@ -10,16 +10,17 @@ firebaseAdmin.initializeApp({
 });
 
 try {
-  axios.get('http://127.0.0.1:4040/api/tunnels').then(function(res) {
+  axios.get('http://127.0.0.1:4040/api/tunnels').then((res) => {
     const database = firebaseAdmin.database();
     database.ref('/stream').child('tunnels').set(res.data.tunnels)
-      .then(function() {
+      .then(() => {
         process.exit();
-      }).catch(function(firebaseError) {
+      })
+      .catch((firebaseError) => {
         console.log({ firebaseError });
         process.exit(1);
       });
-  }).catch(function(axiosErr) {
+  }).catch((axiosErr) => {
     console.log({ axiosErr });
     process.exit(1);
   });

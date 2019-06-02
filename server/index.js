@@ -27,11 +27,11 @@ const STREAM_SECRET = process.argv[2];
 app.use(
   session({
     store: new LokiSessionStore({
-      tty: 0, // to delete stale sessions, this enables instant reauth after logging out
+      ttl: 0, // to delete stale sessions, this enables instant reauth after logging out
     }),
     secret: process.env.SESSION_SECRET,
     cookie: {
-      expires: new Date(Date.now() + 24 * 3600 * 1000), // 24 hours
+      maxAge: 86400000, // 24 hours
     },
   }),
 );
