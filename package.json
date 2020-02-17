@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thedrumsknight/pingmyhusky.git"
+    "url": "git+https://github.com/sahlamba/pingmyhusky.git"
   },
   "author": "Sahil Lamba <sahil.lamba95@gmail.com>",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/thedrumsknight/pingmyhusky/issues"
+    "url": "https://github.com/sahlamba/pingmyhusky/issues"
   },
-  "homepage": "https://github.com/thedrumsknight/pingmyhusky#readme",
+  "homepage": "https://github.com/sahlamba/pingmyhusky#readme",
   "dependencies": {
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
