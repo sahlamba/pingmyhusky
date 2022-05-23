@@ -13,7 +13,7 @@
     "lint": "node_modules/.bin/eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "lint-staged",
-    "tunnel-dump": "node ./scripts/firebase/tunnel-dump.js"
+    "tunnel-dump": "node ./scripts/firebase/tunnel-dump-v2.js"
   },
   "repository": {
     "type": "git",

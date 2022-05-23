@@ -37,7 +37,8 @@ start_ngrok_tunnel() {
 
 persist_ngrok_url() {
     echo "Persisting ngrok URL..."
-    $(which curl) http://127.0.0.1:4040/api/tunnels | jq '.tunnels[] | select( .proto | contains("https")) | .public_url' -r >url.txt 2>&1 &
+    $(which curl) http://127.0.0.1:4040/api/tunnels | jq '.tunnels[] | select( .proto | contains("https")) | .public_url' -r >url.txt 2>&1
+    $(which curl) http://127.0.0.1:4040/api/tunnels | jq '.' -r >tunnels.json 2>&1
     echo "URL persisted."
 }
 
@@ -48,12 +49,12 @@ retryable_ngrok_url_persist() {
     while [ "$RETRY" -lt "$MAX_RETRY" ]; do
         echo "ATTEMPT $RETRY"
         persist_ngrok_url
-        sleep_echo 1s
         if [ -s url.txt ]; then
             break
         else
             ((RETRY += 1))
-            sleep_echo 2s
+            local sleep_time="$((2 ** RETRY))s" # Exponential retry
+            sleep_echo $sleep_time
         fi
     done
 
@@ -67,12 +68,15 @@ send_mail() {
     echo "Sending mail..."
     MSG=$(cat url.txt)
     echo "URL: $MSG"
+    local pwd
+    pwd=$(pwd)
     cd /home/beebo/Projects/emailservice && ./send-mail -s "Pingmyhusky service started!" -m "View here: $MSG" sahil.lamba95@gmail.com
+    cd "$pwd"
 }
 
 set_trap_and_wait() {
     echo "Set trap..."
-    trap "kill $PID1 $PID2 $PID3 && rm -f session-store.db" exit INT TERM
+    trap 'kill $PID1 $PID2 $PID3 && rm -f session-store.db' exit INT TERM
 
     echo "Ready. Waiting..."
     wait
@@ -87,7 +91,6 @@ start_ngrok_tunnel
 sleep_echo 5s
 retryable_ngrok_url_persist
 send_mail
-# # Update ngrok tunnels in Firebase
-# $(which npm) run tunnel-dump
-cd_to_pingmyhusky
+# Update ngrok tunnels in Firebase
+$(which npm) run tunnel-dump
 set_trap_and_wait
