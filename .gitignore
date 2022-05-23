@@ -1,8 +1,9 @@
 # Firebase Service Accpunt Key
 pingmyhusky-firebase-service-account-key.json
 
-# URL Dump File
+# URL Dump Files
 url.txt
+tunnels.json
 
 # Loki DB
 *.db
